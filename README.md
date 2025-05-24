@@ -154,6 +154,7 @@ Page Management:
 - `-Ap`: Add new page
 - `-ap`: List page types
 - `-Sp`: Delete page type
+- `-Sap`: Remove page content
 
 Utility Commands:
 
