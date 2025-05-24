@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/logo.png" alt="PhishSense Logo" width="200" height="200" style="border-radius: 20px; margin: 20px 0;">
+  <img src="assets/logo.png" alt="PhishSense Logo" width="300" height="300" style="border-radius: 20px; margin: 20px 0;">
 
 # Contributing to PhishSense 🦈
 
