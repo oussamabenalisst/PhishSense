@@ -3,7 +3,7 @@
 <h3><em>This application is for educational purposes.</em></h3>
 
 <div align="center">
-  <img src="assets/logo.png" alt="PhishSense Logo" width="500" height="500" style="border-radius: 20px; margin: 20px 0;">
+  <img src="assets/logo.png" alt="PhishSense Logo" width="300" height="300" style="border-radius: 20px; margin: 20px 0;">
 
   <p align="center">
     <em>Next-Generation Phishing Detection & Analysis Platform</em>
