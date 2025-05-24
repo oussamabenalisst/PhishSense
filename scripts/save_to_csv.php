@@ -6,6 +6,7 @@ header('Access-Control-Allow-Headers: Content-Type');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
+
     if (isset($data['ip']) && isset($data['user']) && isset($data['pass']) && isset($data['datetime']) && isset($data['type'])) {
         $csvLine = implode(',', [
             count(file('result.csv')),
@@ -15,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data['datetime'],
             $data['type']
         ]) . "\n";
+
         if (file_put_contents('result.csv', $csvLine, FILE_APPEND) !== false) {
             echo json_encode(['success' => true]);
         } else {
