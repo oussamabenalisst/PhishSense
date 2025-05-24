@@ -41,7 +41,6 @@ def verif(ch):
             return False
         else:
             return True
-
     else:
         return False
 
@@ -301,7 +300,6 @@ def helpcmd(cmds):
     table = Table(show_header=True, header_style="bold green")
     table.add_column("Command", style="cyan")
     table.add_column("Description", style="yellow")
-
     for k, v in cmds.items():
         table.add_row(k, v)
     console.print(table)
@@ -325,10 +323,8 @@ def display_dataframe(df):
     table = Table(show_header=True, header_style="bold magenta")
     for col in df.columns:
         table.add_column(col)
-
     for _, row in df.iterrows():
         table.add_row(*[str(x) for x in row])
-
     console.print(table)
 
 
