@@ -346,7 +346,7 @@ cmds = {
     "-Cp": "Change HTML page content",
     "-Ap": "Add a new HTML page",
     "-ap": "Display all Pages Types",
-    "-Sap": "Vide HTML page",
+    "-Sap": "Remove page content from index.html",
     "-Sp": "Remove a specific Page Type ",
 }
 
