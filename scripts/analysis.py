@@ -480,6 +480,9 @@ while cmd != "-q":
                     console.print(
                         "[bold green]Make sure the file is in the same directory as this script.[bold green]"
                     )
+                console.print(
+                    "[bold green]✓ HTML page cleared successfully! Use -s to save changes.[bold green]"
+                )
             case "-Sp":
                 deleteType(os.getcwd() + "/typesPages.dat")
             case "_":
