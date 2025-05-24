@@ -68,6 +68,9 @@ def Mode(ip, type):
         )
         for i in range(len(Target)):
             current_value = Target[i]
+            console.print(
+                f"[bold MAGENTA]--------------Update {df.columns[i]}--------------[/bold MAGENTA]"
+            )
             new_value = input(
                 Fore.CYAN
                 + f"Current {df.columns[i]}: {current_value}\nNew value (or Enter to keep current): "
