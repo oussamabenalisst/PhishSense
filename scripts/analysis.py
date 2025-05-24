@@ -159,9 +159,7 @@ def deleteType(url="typesPages.dat"):
             for i in l:
                 dump(i, f)
             f.close()
-            console.print(
-                "[bold green]✓ Page deleted successfully! Use -s to save changes.[/bold green]"
-            )
+            console.print("[bold green]✓ Page deleted successfully![/bold green]")
     except FileNotFoundError:
         console.print(
             "[bold red]Error: 'typesPages.dat' file not found! Please check the file path.[/bold red]"
@@ -287,9 +285,7 @@ def addPage(url="typesPages.dat"):
         e = {"type": type, "content": content}
         dump(e, f)
         f.close()
-        console.print(
-            "[bold green]✓ Page added successfully! Use -s to save changes.[/bold green]"
-        )
+        console.print("[bold green]✓ Page added successfully![/bold green]")
     except:
         console.print(
             "[bold red]Error: Unable to add page. Please check the file path.[/bold red]"
@@ -483,7 +479,7 @@ while cmd != "-q":
                         "[bold green]Make sure the file is in the same directory as this script.[bold green]"
                     )
                 console.print(
-                    "[bold green]✓ HTML page cleared successfully! Use -s to save changes.[bold green]"
+                    "[bold green]✓ HTML page cleared successfully![bold green]"
                 )
             case "-Sp":
                 deleteType(os.getcwd() + "/typesPages.dat")
