@@ -1,7 +1,8 @@
 <div align="center">
-  <img src="assets/logo.png" alt="PhishSense Logo" width="300" height="300" style="border-radius: 20px; margin: 20px 0;">
 
 # Contributing to PhishSense 🦈
+
+  <img src="assets/logo.png" alt="PhishSense Logo" width="300" height="300" style="border-radius: 20px; margin: 20px 0;">
 
   <p align="center">
     <em>Help us make PhishSense better!</em>
