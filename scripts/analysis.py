@@ -4,6 +4,7 @@ import random
 import time
 import platform
 import os
+import _pickle
 from pickle import dump, load
 from colorama import init, Fore, Back, Style
 from rich.console import Console
@@ -178,10 +179,21 @@ def ListeTypePages(url="typesPages.dat"):
                 l.append(data["type"])
             except EOFError:
                 break
+            except (_pickle.UnpicklingError, UnicodeDecodeError) as e:
+                console.print(
+                    f"[bold red]Warning: Corrupted data found in {url}![/bold red]"
+                )
+                console.print(
+                    "[yellow]The file might be corrupted or in wrong format.[/yellow]"
+                )
+                console.print(
+                    "[yellow]Please ensure the file was created properly.[/yellow]"
+                )
+                return []
         f.close()
     except EOFError:
         console.print("[bold red]Error: No data found in file![/bold red]")
-        exit(1)
+        return []
     except FileNotFoundError:
         console.print(
             "[bold red]Error: 'typesPages.dat' file not found! Please check the file path.[/bold red]"
@@ -189,7 +201,7 @@ def ListeTypePages(url="typesPages.dat"):
         console.print(
             "[bold green]Make sure the file is in the same directory as this script.[/bold green]"
         )
-        exit(1)
+        return []
     return l
 
 
