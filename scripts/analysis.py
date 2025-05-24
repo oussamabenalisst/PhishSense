@@ -21,7 +21,7 @@ def pont(ch):
     return sum(1 for i in range(len(ch)) if ch[i] == ".")
 
 
-def verif(ch):
+def IpForma(ch):
     if pont(ch) == 3:
         pos = ch.find(".")
         x = ch[:pos]
@@ -450,7 +450,7 @@ while cmd != "-q":
                         break
                 if type == "ip":
                     ip = input(Fore.CYAN + "Target IP >>> " + Style.RESET_ALL).strip()
-                    while not (len(ip) > 5 and len(ip) <= 15 and (verif(ip))):
+                    while not (len(ip) > 5 and len(ip) <= 15 and (IpForma(ip))):
                         if ip == "-q":
                             break
                         console.print("[red][!]Format: xxx.yyy.zzz.www[red]")
