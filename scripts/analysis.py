@@ -317,6 +317,8 @@ def print_header():
     console.print(f"[cyan]Author:[/cyan] [green]PUTIN[/green]")
     console.print(f"[cyan]Platform:[/cyan] [green]{plat}[/green]")
     console.print(f"[cyan]Working Directory:[/cyan] [green]{os.getcwd()}[/green]")
+    console.print(f"[cyan]Current User:[/cyan] [green]{os.getlogin()}[/green]")
+    console.print(f"[cyan]Python Version:[/cyan] [green]{platform.python_version()}[/green]")
 
 
 def display_dataframe(df):
