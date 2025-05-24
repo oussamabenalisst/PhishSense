@@ -14,7 +14,6 @@ from rich import print as rprint
 
 init()
 
-
 console = Console()
 
 
@@ -45,7 +44,7 @@ def verif(ch):
         return False
 
 
-def serch(df, ip, type):
+def search(df, ip, type):
     return df.loc[df[type] == ip]
 
 
@@ -61,7 +60,7 @@ def felter():
 
 def Mode(ip, type):
     global df
-    Target = serch(df, ip, type)
+    Target = search(df, ip, type)
     if not Target.empty:
         Target = list(Target.iloc[0])
         console.print(
@@ -316,7 +315,9 @@ def print_header():
     console.print(f"[cyan]Platform:[/cyan] [green]{plat}[/green]")
     console.print(f"[cyan]Working Directory:[/cyan] [green]{os.getcwd()}[/green]")
     console.print(f"[cyan]Current User:[/cyan] [green]{os.getlogin()}[/green]")
-    console.print(f"[cyan]Python Version:[/cyan] [green]{platform.python_version()}[/green]")
+    console.print(
+        f"[cyan]Python Version:[/cyan] [green]{platform.python_version()}[/green]"
+    )
 
 
 def display_dataframe(df):
@@ -366,7 +367,9 @@ except FileNotFoundError:
         "[bold green]Make sure the file is in the same directory as this script.[/bold green]"
     )
     exit(1)
-console.print("[bold cyan]Enter command ('[green]-h[/green]' for help):[/bold cyan]")
+console.print(
+    "[bold cyan]Enter command [bold cyan]([green]'-h'[green][bold cyan] for help):[bold cyan]"
+)
 cmd = input(Fore.GREEN + "> " + Style.RESET_ALL).strip()
 while cmd != "-q":
     if cmd not in cmds.keys():
@@ -410,8 +413,10 @@ while cmd != "-q":
                         Fore.CYAN + "Type to find [-q quit] >> " + Style.RESET_ALL
                     ).strip()
                 if type != "-q":
-                    ip = input(Fore.CYAN + f"{type} >>> " + Style.RESET_ALL).strip()
-                    result = serch(df, ip, type)
+                    ip = input(
+                        Fore.CYAN + f"Enter The {type} >>> " + Style.RESET_ALL
+                    ).strip()
+                    result = search(df, ip, type)
                     if result.empty:
                         console.print("[red]No results found![red]")
                     else:
@@ -477,7 +482,9 @@ while cmd != "-q":
             case "_":
                 console.print("[bold red]Command not found![bold red]")
 
-    console.print("[bold cyan]Enter command ('[green]-h[green]' for help):[bold cyan]")
+    console.print(
+        "[bold cyan]Enter command [bold cyan]([green]'-h'[green][bold cyan] for help):[bold cyan]"
+    )
     cmd = input(Fore.GREEN + "> " + Style.RESET_ALL).strip()
 
 os.system(clear)
