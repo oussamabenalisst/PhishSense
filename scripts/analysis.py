@@ -55,6 +55,8 @@ def felter():
     df.dropna(inplace=True)
     df = df.sort_values(by=["datetime"], ascending=False)
     df = df.drop_duplicates(subset=["ip", "user", "passwd"], keep="last")
+    df = df[df["ip"].apply(lambda x: IpForma(x) if isinstance(x, str) else False)]
+    df = df[df["datetime"].str.match(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$")]
     df = df[["ip", "user", "passwd", "datetime", "type"]]
 
 
