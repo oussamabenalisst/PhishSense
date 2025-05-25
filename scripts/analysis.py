@@ -142,14 +142,14 @@ def resetuser():
         ).strip()
     if type != "-q":
         ip = input(
-            Fore.CYAN + f"Enter {type} value to delete: " + Style.RESET_ALL
+            Fore.CYAN + f"Enter {type} value to delete [-q quit]: " + Style.RESET_ALL
         ).strip()
         if type == "ip":
             while not (IpForma(ip) or ip == "-q"):
                 console.print("[red][!]Format: xxx.yyy.zzz.www[red]")
                 ip = input(
                     Fore.CYAN
-                    + f"Enter {type} value to delete again: "
+                    + f"Enter {type} value to delete again [-q quit]:  "
                     + Style.RESET_ALL
                 ).strip()
         elif type == "datetime":
@@ -157,7 +157,7 @@ def resetuser():
                 console.print("[red][!]Format: yyyy-mm-dd hh:mm[red]")
                 ip = input(
                     Fore.CYAN
-                    + f"Enter {type} value to delete again: "
+                    + f"Enter {type} value to delete again [-q quit]:  "
                     + Style.RESET_ALL
                 ).strip()
         if ip == "-q":
@@ -182,13 +182,13 @@ def adduser():
             while not (IpForma(new_user[col]) or new_user[col] == "-q"):
                 console.print("[red][!]Format: xxx.yyy.zzz.www[red]")
                 new_user[col] = input(
-                    Fore.YELLOW + f"Enter {col} again: " + Style.RESET_ALL
+                    Fore.YELLOW + f"Enter {col} again [-q quit]: " + Style.RESET_ALL
                 ).strip()
         elif col == "datetime":
             while not (DatetimeForma(new_user[col]) or new_user[col] == "-q"):
                 console.print("[red][!]Format: yyyy-mm-dd hh:mm[red]")
                 new_user[col] = input(
-                    Fore.YELLOW + f"Enter {col} again: " + Style.RESET_ALL
+                    Fore.YELLOW + f"Enter {col} again [-q quit]: " + Style.RESET_ALL
                 ).strip()
         if new_user[col] == "-q":
             console.print("[red]User addition cancelled.[/red]")
