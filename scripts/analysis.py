@@ -21,6 +21,30 @@ def pont(ch):
     return sum(1 for i in range(len(ch)) if ch[i] == ".")
 
 
+def DatetimeForma(ch):
+    if (
+        len(ch) == 16
+        and ch[4] == "-"
+        and ch[7] == "-"
+        and ch[10] == " "
+        and ch[13] == ":"
+    ):
+        year = ch[:4]
+        month = ch[5:7]
+        day = ch[8:10]
+        hour = ch[11:13]
+        minute = ch[14:16]
+        if (
+            year.isdigit()
+            and month.isdigit()
+            and day.isdigit()
+            and hour.isdigit()
+            and minute.isdigit()
+        ):
+            return True
+    return False
+
+
 def IpForma(ch):
     if pont(ch) == 3:
         x, y, z, w = ch.split(".")
@@ -48,7 +72,11 @@ def felter():
     df = df.sort_values(by=["datetime"], ascending=False)
     df = df.drop_duplicates(subset=["ip", "user", "passwd"], keep="last")
     df = df[df["ip"].apply(lambda x: IpForma(x) if isinstance(x, str) else False)]
-    df = df[df["datetime"].str.match(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$")]
+    df = df[
+        df["datetime"].apply(
+            lambda x: DatetimeForma(x) if isinstance(x, str) else False
+        )
+    ]
     df = df[["ip", "user", "passwd", "datetime", "type"]]
 
 
@@ -70,6 +98,22 @@ def UpdateUserData(ip, type):
                 + f"Current {df.columns[i]}: {current_value}\nNew value (or Enter to keep current): "
                 + Style.RESET_ALL
             ).strip()
+            if df.columns[i] == "ip":
+                while not (IpForma(new_value) or new_value == ""):
+                    console.print("[red][!]Format: xxx.yyy.zzz.www[red]")
+                    new_value = input(
+                        Fore.CYAN
+                        + f"Current {df.columns[i]}: {current_value}\nNew value (or Enter to keep current): "
+                        + Style.RESET_ALL
+                    ).strip()
+            elif df.columns[i] == "datetime":
+                while not (DatetimeForma(new_value) or new_value == ""):
+                    console.print("[red][!]Format: yyyy-mm-dd hh:mm[red]")
+                    new_value = input(
+                        Fore.CYAN
+                        + f"Current {df.columns[i]}: {current_value}\nNew value (or Enter to keep current): "
+                        + Style.RESET_ALL
+                    ).strip()
             Target[i] = new_value if new_value else current_value
         df = df[df[type] != ip]
         df = pd.concat(
