@@ -144,6 +144,25 @@ def resetuser():
         ip = input(
             Fore.CYAN + f"Enter {type} value to delete: " + Style.RESET_ALL
         ).strip()
+        if type == "ip":
+            while not (IpForma(ip) or ip == "-q"):
+                console.print("[red][!]Format: xxx.yyy.zzz.www[red]")
+                ip = input(
+                    Fore.CYAN
+                    + f"Enter {type} value to delete again: "
+                    + Style.RESET_ALL
+                ).strip()
+        elif type == "datetime":
+            while not (DatetimeForma(ip) or ip == "-q"):
+                console.print("[red][!]Format: yyyy-mm-dd hh:mm[red]")
+                ip = input(
+                    Fore.CYAN
+                    + f"Enter {type} value to delete again: "
+                    + Style.RESET_ALL
+                ).strip()
+        if ip == "-q":
+            console.print("[red]Deletion cancelled.[/red]")
+            return
         df = df[df[type] != ip]
         console.print(
             "[bold green]✓ Record deleted successfully! Use -s to save changes.[/bold green]"
@@ -158,18 +177,22 @@ def adduser():
     )
     for col in df.columns:
         new_user[col] = input(Fore.YELLOW + f"Enter {col}: " + Style.RESET_ALL).strip()
+
         if col == "ip":
-            while not (IpForma(new_user[col])):
+            while not (IpForma(new_user[col]) or new_user[col] == "-q"):
                 console.print("[red][!]Format: xxx.yyy.zzz.www[red]")
                 new_user[col] = input(
                     Fore.YELLOW + f"Enter {col} again: " + Style.RESET_ALL
                 ).strip()
         elif col == "datetime":
-            while not (DatetimeForma(new_user[col])):
+            while not (DatetimeForma(new_user[col]) or new_user[col] == "-q"):
                 console.print("[red][!]Format: yyyy-mm-dd hh:mm[red]")
                 new_user[col] = input(
                     Fore.YELLOW + f"Enter {col} again: " + Style.RESET_ALL
                 ).strip()
+        if new_user[col] == "-q":
+            console.print("[red]User addition cancelled.[/red]")
+            return
     df = pd.concat([df, pd.DataFrame([new_user])], ignore_index=True)
     console.print(
         "[bold green]✓ Record added successfully! Use -s to save changes.[/bold green]"
