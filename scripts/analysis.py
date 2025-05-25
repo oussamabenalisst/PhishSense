@@ -158,6 +158,18 @@ def adduser():
     )
     for col in df.columns:
         new_user[col] = input(Fore.YELLOW + f"Enter {col}: " + Style.RESET_ALL).strip()
+        if col == "ip":
+            while not (IpForma(new_user[col])):
+                console.print("[red][!]Format: xxx.yyy.zzz.www[red]")
+                new_user[col] = input(
+                    Fore.YELLOW + f"Enter {col} again: " + Style.RESET_ALL
+                ).strip()
+        elif col == "datetime":
+            while not (DatetimeForma(new_user[col])):
+                console.print("[red][!]Format: yyyy-mm-dd hh:mm[red]")
+                new_user[col] = input(
+                    Fore.YELLOW + f"Enter {col} again: " + Style.RESET_ALL
+                ).strip()
     df = pd.concat([df, pd.DataFrame([new_user])], ignore_index=True)
     console.print(
         "[bold green]✓ Record added successfully! Use -s to save changes.[/bold green]"
