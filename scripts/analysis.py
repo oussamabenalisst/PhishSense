@@ -23,15 +23,7 @@ def pont(ch):
 
 def IpForma(ch):
     if pont(ch) == 3:
-        pos = ch.find(".")
-        x = ch[:pos]
-        ch = ch[pos + 1 : len(ch)]
-        pos = ch.find(".")
-        y = ch[:pos]
-        ch = ch[pos + 1 : len(ch)]
-        pos = ch.find(".")
-        z = ch[:pos]
-        w = ch[pos + 1 : len(ch)]
+        x, y, z, w = ch.split(".")
         if len(x) > 3 or len(y) > 3 or len(z) > 3 or len(w) > 3:
             return False
         elif not (
@@ -60,7 +52,7 @@ def felter():
     df = df[["ip", "user", "passwd", "datetime", "type"]]
 
 
-def Mode(ip, type):
+def UpdateUserData(ip, type):
     global df
     Target = search(df, ip, type)
     if not Target.empty:
@@ -426,7 +418,6 @@ while cmd != "-q":
                 with console.status(
                     "[bold green]Saving changes...[/bold green]"
                 ) as status:
-                    felter()
                     df.to_csv(url, encoding="utf-8")
                     time.sleep(random.uniform(0.5, 1))
                 console.print("[bold green]✓ Changes saved successfully![bold green]")
@@ -437,29 +428,18 @@ while cmd != "-q":
                 console.print("[yellow]Use -s to save changes[yellow]")
             case "-M":
                 console.print("[bold yellow]Modification Mode[bold yellow]")
-                type = input(
-                    Fore.CYAN + "Type to find ip >> " + Style.RESET_ALL
-                ).strip()
-                while type not in "ip":
-                    type = input(
-                        Fore.CYAN + "Type to find ip [-q quit] >> " + Style.RESET_ALL
-                    ).strip()
-                    if type == "-q":
+                type = "ip"
+                ip = input(Fore.CYAN + "Target IP >>> " + Style.RESET_ALL).strip()
+                while not (len(ip) > 5 and len(ip) <= 15 and (IpForma(ip))):
+                    if ip == "-q":
                         break
-                if type == "ip":
-                    ip = input(Fore.CYAN + "Target IP >>> " + Style.RESET_ALL).strip()
-                    while not (len(ip) > 5 and len(ip) <= 15 and (IpForma(ip))):
-                        if ip == "-q":
-                            break
-                        console.print("[red][!]Format: xxx.yyy.zzz.www[red]")
-                        ip = input(
-                            Fore.CYAN + "Target IP [-q quit] >>> " + Style.RESET_ALL
-                        ).strip()
-                else:
-                    ip = "-q"
+                    console.print("[red][!]Format: xxx.yyy.zzz.www[red]")
+                    ip = input(
+                        Fore.CYAN + "Target IP [-q quit] >>> " + Style.RESET_ALL
+                    ).strip()
                 try:
                     if ip != "-q":
-                        Mode(ip, type)
+                        UpdateUserData(ip, type)
                 except NameError:
                     console.print("[red]Modification cancelled[red]")
             case "-c":
