@@ -167,6 +167,9 @@ def resetuser():
         console.print(
             "[bold green]✓ Record deleted successfully! Use -s to save changes.[/bold green]"
         )
+    else:
+        console.print("[red]Deletion cancelled.[/red]")
+        return
 
 
 def adduser():
@@ -208,6 +211,7 @@ def deleteType(url="typesPages.dat"):
         type = input(Fore.YELLOW + f"Enter type of Page to delete: " + Style.RESET_ALL)
         while type not in types:
             if type == "-q":
+                console.print("[red]Deletion cancelled.[/red]")
                 break
             console.print(f"[red]Invalid type! Choose from: {types}[/red]")
             type = input(
@@ -332,6 +336,8 @@ def changePage(data, index):
                 "[bold green]Make sure the content is properly encoded.[/bold green]"
             )
             exit(1)
+    else:
+        console.print("[red]Change cancelled.[/red]")
 
 
 def addPage(url="typesPages.dat"):
@@ -345,13 +351,17 @@ def addPage(url="typesPages.dat"):
                 Fore.YELLOW + f"Enter type of Page [-q quit]: " + Style.RESET_ALL
             ).strip()
         if type == "-q":
+            console.print("[red]Page addition cancelled.[/red]")
             return
         console.print(
-            "[red]The code must be vaccinated here first.< https://codebeautify.org/minify-html >[/red]"
+            "[red]The code must be vaccinated here first < https://codebeautify.org/minify-html >[/red]"
         )
         content = input(
             Fore.YELLOW + f"Enter content of Page: " + Style.RESET_ALL
         ).strip()
+        if content == "-q" or not content:
+            console.print("[red]Page addition cancelled.[/red]")
+            return
         f = open(url, "ab+")
         e = {"type": type, "content": content}
         dump(e, f)
@@ -493,6 +503,8 @@ while cmd != "-q":
                         console.print("[red]No results found![red]")
                     else:
                         display_dataframe(result)
+                else:
+                    console.print("[red]Search cancelled.[red]")
             case "-s":
                 with console.status(
                     "[bold green]Saving changes...[/bold green]"
@@ -519,6 +531,8 @@ while cmd != "-q":
                 try:
                     if ip != "-q":
                         UpdateUserData(ip, type)
+                    else:
+                        console.print("[red]Modification cancelled[red]")
                 except NameError:
                     console.print("[red]Modification cancelled[red]")
             case "-c":
