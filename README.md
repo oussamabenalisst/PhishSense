@@ -100,7 +100,7 @@ PhishSense is a comprehensive security research platform designed for simulating
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/phishsense.git
+git clone https://github.com/oussamabenalisst/phishsense.git
 cd phishsense
 ```
 
