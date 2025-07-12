@@ -400,6 +400,9 @@ def print_header():
     console.print(
         f"[cyan]Python Version:[/cyan] [green]{platform.python_version()}[/green]"
     )
+    console.print(
+        f"[cyan]Phishsense Version:[/cyan] [green]1.0.0[/green]"
+    )
 
 
 def display_dataframe(df):
