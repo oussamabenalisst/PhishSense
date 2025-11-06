@@ -71,3 +71,4 @@ async function addtocsv(type, url) {
 function getE(x) {
   return document.getElementById(x);
 }
+//test in phone
